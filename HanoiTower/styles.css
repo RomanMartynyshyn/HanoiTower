@@ -1,0 +1,81 @@
+/* Стилі для гри "Вежі Ханоя" */
+body {
+    font-family: 'Inter', sans-serif; /* Використання шрифту Inter */
+}
+.tower {
+    width: 150px; /* Ширина вежі */
+    min-height: 250px; /* Мінімальна висота вежі */
+    background-color: #d2b48c; /* Колір вежі (пісочний) */
+    border-radius: 10px 10px 0 0; /* Закруглені верхні кути */
+    margin: 0 20px; /* Відступи між вежами */
+    display: flex;
+    flex-direction: column-reverse; /* Диски складаються знизу вгору */
+    align-items: center; /* Диски по центру вежі */
+    padding-bottom: 10px; /* Відступ знизу для основи */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Тінь для вежі */
+}
+.tower-base { /* Основа для вежі */
+    width: 180px; /* Ширина основи */
+    height: 20px; /* Висота основи */
+    background-color: #8b4513; /* Колір основи (коричневий) */
+    border-radius: 5px; /* Закруглені кути основи */
+    position: absolute;
+    bottom: -20px; /* Розташування під вежею */
+    left: 50%;
+    transform: translateX(-50%);
+}
+.disk {
+    height: 25px; /* Висота диска */
+    border-radius: 8px; /* Закруглені кути диска */
+    margin-top: 3px; /* Відступ між дисками */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    cursor: pointer; /* Курсор при наведенні на диск */
+    transition: all 0.3s ease; /* Плавний перехід для анімацій */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Тінь для диска */
+}
+.disk-selected { /* Стиль для обраного диска */
+    outline: 3px solid #007bff; /* Синя рамка */
+    opacity: 0.8; /* Легка прозорість */
+}
+/* Кольори для дисків */
+.disk-color-1 { background-color: #ef4444; } /* Червоний */
+.disk-color-2 { background-color: #f97316; } /* Оранжевий */
+.disk-color-3 { background-color: #eab308; } /* Жовтий */
+.disk-color-4 { background-color: #22c55e; } /* Зелений */
+.disk-color-5 { background-color: #3b82f6; } /* Синій */
+.disk-color-6 { background-color: #6366f1; } /* Індиго */
+.disk-color-7 { background-color: #8b5cf6; } /* Фіолетовий */
+.disk-color-8 { background-color: #ec4899; } /* Рожевий */
+
+/* Стилі для повідомлень */
+#message-area {
+    min-height: 24px; /* Мінімальна висота, щоб уникнути стрибків макету */
+    transition: color 0.3s ease; /* Плавна зміна кольору тексту */
+}
+.message-success {
+    color: #16a34a; /* Зелений для успіху */
+}
+.message-error {
+    color: #dc2626; /* Червоний для помилки */
+}
+.message-info {
+    color: #0284c7; /* Синій для інформації */
+}
+.controls-container { /* Контейнер для елементів керування */
+    background-color: #f3f4f6; /* Світло-сірий фон */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+button, input[type="number"] { /* Стилізація кнопок та інпутів */
+    transition: all 0.2s ease-in-out;
+}
+button:hover {
+    transform: translateY(-2px); /* Ефект підняття при наведенні */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
