@@ -47,17 +47,6 @@ function setupTowersDOM() {
         towerElement.appendChild(towerBase); // Додаємо основу до вежі
 
         towerElement.addEventListener('click', () => handleTowerClick(i));
-
-// Додаємо drag & drop події:
-towerElement.addEventListener('dragover', (e) => {
-    e.preventDefault(); // дозволяє drop
-});
-towerElement.addEventListener('drop', (e) => {
-    e.preventDefault();
-    const diskValueToMove = parseInt(e.dataTransfer.getData('text/plain'));
-    handleDrop(i, diskValueToMove);
-});
-
         towersContainer.appendChild(towerElement);
     }
 }
@@ -107,27 +96,20 @@ function startGame() {
  */
 function createDiskElement(value, totalDisks) {
     const diskElement = document.createElement('div');
-    diskElement.classList.add('disk', diskColors[(value - 1) % diskColors.length]);
-    diskElement.setAttribute('draggable', 'true'); // робимо диск перетягуваним
-
-    const minWidthPercent = 30;
-    const maxWidthPercent = 100;
+    diskElement.classList.add('disk', diskColors[value - 1 % diskColors.length]);
+    // Розрахунок ширини диска: базові 40% + відсоток від значення
+    const minWidthPercent = 30; // Мінімальна ширина диска у відсотках
+    const maxWidthPercent = 100; // Максимальна ширина диска у відсотках
     const widthRange = maxWidthPercent - minWidthPercent;
-    const diskWidth = minWidthPercent + ((value - 1) / (totalDisks - 1 + 0.001)) * widthRange;
-
-    diskElement.style.width = `${Math.max(20, diskWidth)}%`;
-    diskElement.textContent = value;
-    diskElement.dataset.value = value;
-
-    // Подія початку перетягування
-    diskElement.addEventListener('dragstart', (e) => {
-        e.dataTransfer.setData('text/plain', value); // передаємо значення диска
-        sourceTowerIndex = parseInt(diskElement.parentElement.dataset.towerId);
-    });
-
+    // Чим більше значення (більший диск), тим більша ширина
+    // Диск з value=1 буде найменшим, value=totalDisks - найбільшим
+    const diskWidth = minWidthPercent + ( (value -1) / (totalDisks -1 + 0.001) ) * widthRange ; // +0.001 щоб уникнути ділення на 0 якщо 1 диск
+    
+    diskElement.style.width = `${Math.max(20, diskWidth)}%`; // Мінімальна ширина 20%
+    diskElement.textContent = value; // Показуємо номер диска
+    diskElement.dataset.value = value; // Зберігаємо значення диска
     return diskElement;
 }
-
 
 /**
  * Обробляє клік по вежі.
@@ -235,30 +217,5 @@ function checkWinCondition() {
                 // Змінюємо текст кнопки, щоб запропонувати нову гру
             startResetButton.textContent = 'Грати Ще Раз';
         }
-    }
-}
-
-function handleDrop(targetTowerIndex, diskValueToMove) {
-    const targetTowerDOM = towersContainer.children[targetTowerIndex];
-    const topDiskOnTargetTower = towers[targetTowerIndex].slice(-1)[0];
-
-    if (topDiskOnTargetTower == null || diskValueToMove < topDiskOnTargetTower) {
-        // Знайди DOM елемент диска на вихідній вежі
-        const sourceTowerDOM = towersContainer.children[sourceTowerIndex];
-        const diskElement = Array.from(sourceTowerDOM.children).find(
-            el => el.dataset?.value == diskValueToMove
-        );
-
-        towers[sourceTowerIndex].pop();
-        towers[targetTowerIndex].push(diskValueToMove);
-        targetTowerDOM.appendChild(diskElement);
-
-        moveCount++;
-        updateMoveCount();
-        displayMessage(`Диск ${diskValueToMove} переміщено.`, 'info');
-
-        checkWinCondition();
-    } else {
-        displayMessage('Невалідний хід! Не можна класти більший диск на менший.', 'error');
     }
 }
