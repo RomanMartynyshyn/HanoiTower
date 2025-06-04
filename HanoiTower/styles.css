@@ -3,8 +3,8 @@ body {
     font-family: 'Inter', sans-serif; /* Використання шрифту Inter */
 }
 .tower {
-    width: 150px; /* Ширина вежі */
-    min-height: 250px; /* Мінімальна висота вежі */
+    width: 300px; /* Ширина вежі */
+    min-height: 450px; /* Мінімальна висота вежі */
     background-color: #d2b48c; /* Колір вежі (пісочний) */
     border-radius: 10px 10px 0 0; /* Закруглені верхні кути */
     margin: 0 20px; /* Відступи між вежами */
@@ -16,7 +16,7 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Тінь для вежі */
 }
 .tower-base { /* Основа для вежі */
-    width: 180px; /* Ширина основи */
+    width: 380px; /* Ширина основи */
     height: 20px; /* Висота основи */
     background-color: #8b4513; /* Колір основи (коричневий) */
     border-radius: 5px; /* Закруглені кути основи */
@@ -26,7 +26,7 @@ body {
     transform: translateX(-50%);
 }
 .disk {
-    height: 25px; /* Висота диска */
+    height: 35px; /* Висота диска */
     border-radius: 8px; /* Закруглені кути диска */
     margin-top: 3px; /* Відступ між дисками */
     display: flex;
